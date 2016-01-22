@@ -6,15 +6,20 @@
 package ejemplomatriz;
 
 import java.util.Scanner;
-
+import java.text.DecimalFormat;  
 /**
  *
  * @author aparracorbacho
  */
 public class MetodosMatriz {
     int [][]notas = new int[3][4];
-    int []notaMedia = new int[3];
-    int []notaMediaAsig = new int[4];
+    float []notaMedia = new float[3];
+    float []notaMediaAsig = new float[4];
+    String []nAlumnos = {"aa","bb","cc"};
+    String []nAsig = {"PR","CD","BD","LM"};
+    DecimalFormat decimales = new DecimalFormat("0.0");
+    
+    
     //Posible forma de cargar unha matriz // int [][]notaM={{7,9,5,4},{5,5,5,5},{6,7,8,9}}
     
     public void cargarMatriz(){
@@ -29,26 +34,41 @@ public class MetodosMatriz {
      public void amosarMatriz(){
         notaMedia();
         notaMediaAsig();
-         System.out.println("=============\nLas notas   || Media por alumno\n=============");
+        System.out.println("=============\nLas notas      || Media por alumno\n=============");
+               
         for(int f=0;f<notas.length;f++){         //nos movemos por la fila
+            if (f==0) { System.out.print("   ");}
+            if (f==0) {
+                for (int a=0;a<nAsig.length;a++) {System.out.print(nAsig[a] + " ");}
+                System.out.println();
+            }
+            System.out.print(nAlumnos[f] + " ");
+            
           for (int c=0;c<notas[f].length;c++){   //nos movemos por la columna
               System.out.print(notas[f][c] + "  ");
           }    
           System.out.println("|| " + notaMedia[f]);
         }
         System.out.println("=============\nMedia por asignatura");
+        for (int a=0;a<nAsig.length;a++) {System.out.print(nAsig[a] + "  ");}
+        System.out.println();
         for (int f=0;f<notaMediaAsig.length;f++){
-            System.out.print(notaMediaAsig[f] + "  ");
+            System.out.print(decimales.format(notaMediaAsig[f]) + " ");
         }
         System.out.println();
     }
     
     
     public int pedirNota(){
+        int nota;
+        do {
         System.out.println("Introduce a nota");
         Scanner notaTeclado = new Scanner(System.in);
-        int nota = notaTeclado.nextInt();
-        return nota;
+        nota = notaTeclado.nextInt();
+        if (nota<1 || nota>10) {System.out.println("Nota no valida");}
+        } while (nota<1 || nota>10);
+        return nota; 
+   
     }
     
     public void notaMedia(){
@@ -58,7 +78,7 @@ public class MetodosMatriz {
               media = media + notas[f][c];
           }    
            notaMedia[f] = media/notas[f].length;
-        }
+          }
     }
     
     public void notaMediaAsig(){
@@ -72,6 +92,10 @@ public class MetodosMatriz {
             notaMediaAsig[c] = notaMediaAsig[c]/notas.length;
         }
        
+    }
+
+    private float formatea(float notaMediaAsig) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
